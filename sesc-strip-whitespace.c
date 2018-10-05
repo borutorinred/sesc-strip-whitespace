@@ -1,21 +1,21 @@
 #include <stdio.h>
+#include <math.h>
 
 int main(int argc, char const *argv[])
 {
-	char in[1024], out[1024] = {0};
-	scanf("%c", in);
-	for (char *c = in + 1; *(c - 1) != '\n'; c++)
-		scanf("%c", c);
+	long long a;
+	scanf("%lli", &a);
+	
+	long long n2 = 0, n5 = 0;
 
-	char *j = out;
-	for (char *i = in; *i != 0 && *i != '\n'; i++)
-		if (*i != ' ' || (j != out && *(j - 1) != ' '))
-			*(j++) = *i;
+	for (long long i = 1, j; i <= a; j = ++i) {
+		for (; j % 2 == 0; j /= 2)
+			n2++;
 
-	if (*(j - 1) == ' ')
-		j--;
-	*j = 0;
-
-	printf("%s\n", out);
+		for (; j % 5 == 0; j /= 5)
+			n5++;
+	}
+	
+	printf("%lli\n", n2 < n5 ? n2 : n5);
 	return 0;
 }
